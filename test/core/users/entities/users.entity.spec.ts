@@ -1,6 +1,6 @@
 import {describe, expect, it} from "bun:test";
 
-import {Role, UserEntity} from "@core/users/entities/user.entity";
+import {Role, UsersEntity} from "@core/users/entities/users.entity";
 import {AvatarUrlVO} from "@core/users/value-objects/avatar-url.vo";
 import {EmailVO} from "@core/users/value-objects/email.vo";
 import {NameVO} from "@core/users/value-objects/name.vo";
@@ -10,7 +10,7 @@ describe("User Entity", () => {
   it("Should be able to create user", async () => {
     const hash = await PasswordHashVO.fromPlain("strong123");
 
-    const user = new UserEntity({
+    const user = new UsersEntity({
       name: NameVO.create("Luan Campos"),
       email: EmailVO.create("luan@mail.com"),
       avatarUrl: AvatarUrlVO.create("https://github.com/luancamposdev.png"),
@@ -27,7 +27,7 @@ describe("User Entity", () => {
   it("Should allow updating the avatar URL", async () => {
     const hash = await PasswordHashVO.fromPlain("strong123");
 
-    const user = new UserEntity({
+    const user = new UsersEntity({
       name: NameVO.create("Luan Campos"),
       email: EmailVO.create("luan@mail.com"),
       avatarUrl: AvatarUrlVO.create("https://github.com/luancamposdev.png"),
@@ -45,7 +45,7 @@ describe("User Entity", () => {
   it("Should add social login", async () => {
     const hash = await PasswordHashVO.fromPlain("strong123");
 
-    const user = new UserEntity({
+    const user = new UsersEntity({
       name: NameVO.create("Luan Campos"),
       email: EmailVO.create("luan@mail.com"),
       avatarUrl: AvatarUrlVO.create("https://github.com/luancamposdev.png"),
@@ -68,7 +68,7 @@ describe("User Entity", () => {
   it("Should attach artist profile and switch role", async () => {
     const hash = await PasswordHashVO.fromPlain("artist123");
 
-    const user = new UserEntity({
+    const user = new UsersEntity({
       name: NameVO.create("Luan Campos"),
       email: EmailVO.create("luancampos@mail.com"),
       avatarUrl: null,
@@ -85,7 +85,7 @@ describe("User Entity", () => {
   it("Should delete account", async () => {
     const hash = await PasswordHashVO.fromPlain("delete123");
 
-    const user = new UserEntity({
+    const user = new UsersEntity({
       name: NameVO.create("Luan Campos"),
       email: EmailVO.create("luancampos@mail.com"),
       avatarUrl: null,

@@ -37,7 +37,7 @@ export interface IUser {
   listenerProfile?: { id: string };
 }
 
-export class UserEntity {
+export class UsersEntity {
   private readonly _id: string;
   private props: IUser;
 

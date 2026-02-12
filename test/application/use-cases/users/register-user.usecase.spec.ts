@@ -1,18 +1,19 @@
 import {describe, expect, it} from "bun:test";
-
-import {RegisterUserUseCaseImpl} from "@/application/use-cases/users/register-user.usecase";
+import {Role} from "@core/users/entities/users.entity";
+import {RegisterUserUseCase} from "@/application/use-cases/users/register-user.usecase";
 import {InMemoryUsersRepository} from "../../../in-memory-users.repository";
 
 describe("Register User Use Case", () => {
   it("Should register a new user", async () => {
     const usersRepository = new InMemoryUsersRepository();
-    const registerUserUseCase = new RegisterUserUseCaseImpl(usersRepository);
+    const registerUserUseCase = new RegisterUserUseCase(usersRepository);
 
     const result = await registerUserUseCase.execute({
       name: "Luan Campos",
       email: "luan@mail.com",
       avatarUrl: "https://cdn.campos/luan.png",
       password: "strong123",
+      role: Role.ARTIST,
     });
 
     expect(result.userId).toBeString();
@@ -25,7 +26,7 @@ describe("Register User Use Case", () => {
 
   it("Should not allow duplicate email", async () => {
     const usersRepository = new InMemoryUsersRepository();
-    const registerUserUseCase = new RegisterUserUseCaseImpl(usersRepository);
+    const registerUserUseCase = new RegisterUserUseCase(usersRepository);
 
     await registerUserUseCase.execute({
       name: "Luan Campos",

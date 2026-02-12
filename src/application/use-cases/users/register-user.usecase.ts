@@ -11,9 +11,10 @@ export interface RegisterUserRequest {
   email: string;
   password: string;
   avatarUrl?: string | null;
+  role?: Role;
 }
 
-export class RegisterUserUseCaseImpl {
+export class RegisterUserUseCase {
   constructor(private readonly userRepository: UsersRepository) {}
 
   async execute(request: RegisterUserRequest): Promise<{ userId: string }> {
@@ -21,6 +22,7 @@ export class RegisterUserUseCaseImpl {
     const email = EmailVO.create(request.email);
     const avatarUrl = AvatarUrlVO.create(request.avatarUrl ?? null);
     const passwordHash = await PasswordHashVO.fromPlain(request.password);
+    const role = request.role ?? Role.LISTENER;
 
     const exists = await this.userRepository.existsByEmail(email);
 
@@ -34,7 +36,7 @@ export class RegisterUserUseCaseImpl {
       email,
       avatarUrl: avatarUrl,
       passwordHash,
-      role: Role.LISTENER,
+      role: role,
     });
 
     await this.userRepository.register(user);
